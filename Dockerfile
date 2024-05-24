@@ -5,9 +5,13 @@ LABEL maintainer="wormbenso"
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+# Install bash
+RUN apk update && apk add bash
+
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 COPY ./app /app
+COPY ./wait-for-it.sh /wait-for-it.sh
 WORKDIR /app
 EXPOSE 8000
 
@@ -26,7 +30,8 @@ RUN python -m venv /py && \
     adduser \
         --disabled-password \
         --no-create-home \
-        django-user
+        django-user && \
+    chmod +x /wait-for-it.sh
 
 ENV PATH="/py/bin:$PATH"
 
