@@ -92,7 +92,7 @@
 
   <!-- service section -->
 
-  <section class="service_section layout_padding">
+  <section id="services" class="service_section layout_padding">
     <div class="service_container">
       <div class="container-fluid">
         <div class="heading_container heading_center">
@@ -243,7 +243,7 @@
 
   <!-- about section -->
 
-  <section class="about_section layout_padding">
+  <section id="about" class="about_section layout_padding">
     <div class="container-fluid">
       <div class="heading_container heading_center">
         <h2>
@@ -266,6 +266,8 @@
             </h3>
             <p style="line-height: 30px;">
                 Crystal Clear Cleaners, founded in 2015, has been providing cleaning services for homes and businesses. Their goal is to make your space cleaner and more comfortable. They believe the secret to their success is twofold. First, they use well-trained staff, experienced supervisors, and the best equipment and cleaning supplies to get the job done right. Second, they focus on understanding what each customer needs, whether you're a homeowner or a business owner, and create a cleaning plan that fits those specific needs.
+                <br>At Crystal Clear Cleaners we boast of the machines and technology we use, as we do alot of research and development to position ourselves among the best with the competing industry.<br>
+                Our Cleaning service guarantees results and you never have to worry about the liablity or cancellations - team of bonded, insured staff will always arrive when scheduled, with your cleaning plan in hand, to give yoy the free time you need and a house you can be proud of. 
             </p>
             <a href="">
               Read More
@@ -280,7 +282,7 @@
 
   <!-- why section -->
 
-  <section class="service_section layout_padding">
+  <section id="why" class="service_section layout_padding">
     <div class="service_container">
       <div class="container-fluid">
         <div class="heading_container heading_center">
@@ -394,7 +396,7 @@
   <!-- end why section -->
 
   <!-- team section -->
-  <section class="team_section layout_padding">
+  <section id="team" class="team_section layout_padding">
     <div class="container-fluid">
       <div class="heading_container heading_center">
         <h2 class="">
@@ -541,7 +543,7 @@
 
   <!-- client section -->
 
-  <section class="client_section layout_padding">
+  <section id="clients" class="client_section layout_padding">
     <div class="container">
       <div class="heading_container heading_center psudo_white_primary mb_45">
         <h2>
@@ -652,7 +654,7 @@
 
   <!-- info section -->
 
-  <section class="info_section layout_padding2">
+  <section id="info" class="info_section layout_padding2">
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-lg-3 info_col">
@@ -671,18 +673,18 @@
               Quick Links
             </h4>
             <div class="info_links">
-              <a class="active" href="{% url 'home' %}">
+              <a class="active" href="">
                 Home
               </a>
-              <a class="" href="{% url 'about' %}">
+              <a class="" href="#about">
                 Why Us
               </a>
-              <a class="" href="{% url 'services' %}">
+              <a class="" href="#services">
                 Services
               </a>
               
-              <a class="" href="{% url 'contact' %}">
-                Contact
+              <a class="" href="#team">
+                Our Team
               </a>
             </div>
           </div>
@@ -714,7 +716,7 @@
           </div>
         </div>
 
-        <div class="col-md-6 col-lg-3 info_col">
+        <div id="contact" class="col-md-6 col-lg-3 info_col">
           <div class="info_contact">
             <h4>
               Contact US

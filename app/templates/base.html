@@ -51,7 +51,7 @@
       <header class="header_section">
         <div class="container-fluid">
           <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <a class="navbar-brand" href="{% url 'home' %}">
+            <a class="navbar-brand" href="#home">
               <span>
                 Crystal Clear Cleaners
               </span>
@@ -64,19 +64,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav  ">
                 <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'about' %}">Why US</a>
+                  <a class="nav-link" href="#about">Why US</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'services' %}">Services</a>
+                  <a class="nav-link" href="#services">Services</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                  <a class="nav-link" href="#contact">Contact Us</a>
                 </li>
                 <li class="nav-item">
-                  <button type="button" class="btn btn-primary"><a class="nav-link" href="#">get Quote</a></button>
+                  <a class="nav-link btn btn-success" href="#">get Quote</a>
                 </li>
               </ul>
             </div>
@@ -88,7 +88,27 @@
           
     {% endblock %}
         
-
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        function scrollToSection(id) {
+          const section = document.getElementById(id);
+          if (section) {
+            section.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+    
+        const navbarLinks = document.querySelectorAll("nav a");
+        navbarLinks.forEach(link => {
+          link.addEventListener("click", function(event) {
+            event.preventDefault();
+            const targetId = this.getAttribute("href").substring(1);
+            scrollToSection(targetId);
+          });
+        });
+      });
+    </script>
+    
+    
     <!-- jQery -->
     <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
     <!-- popper js -->
