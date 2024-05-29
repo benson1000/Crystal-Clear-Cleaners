@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import QuoteForm
 from django.contrib import messages
 
@@ -16,6 +16,7 @@ def quote_view(request):
         if form.is_valid():
             form.save()
             messages.success(request, success_message)
+            return redirect('quote')
     else:
         form = QuoteForm()
-    return render(request, 'quote/quote.html', {'form': form})
+    return render(request, 'quote/quote_form.html', {'form': form})
