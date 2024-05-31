@@ -19,10 +19,36 @@
     {% else %}
         <title>Crystal Clear Cleaners</title>
     {% endif %}
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/solid.css" integrity="sha384-Tv5i09RULyHKMwX0E8wJUqSOaXlyu3SQxORObAI08iUwIalMmN5L6AvlPX2LMoSE" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/fontawesome.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous"/>
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+    <style>
+      .custom-icon {
+        color: white;
+        font-size: 25px;
+        margin-right: 10px;
+      }
+    
+      .btn.btn-success:hover {
+        background-color: blue !important; /* Use !important to override Bootstrap styles */
+      }
+    
+      
+      .btn.btn-success:hover span {
+        color: white !important; 
+      }
 
+      .info_social a:not(:last-child) {
+        margin-right: 10px; /* Adding space between the social icons except for the last one */
+      }
+    
+      .info_social a i {
+          color: #ff5733; /* Changing the color of the social icons */
+          padding-right: 15px;
+      }
+    </style>
+    
     <!-- fonts style -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 
@@ -83,11 +109,12 @@
           </nav>
         </div>
       </header>
-    {% block content %}
-          
-          
-    {% endblock %}
-        
+    
+      {% block content %}
+            
+            
+      {% endblock %}
+    </div>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         function scrollToSection(id) {

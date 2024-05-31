@@ -8,9 +8,16 @@ class QuoteForm(forms.ModelForm):
         fields = ['full_name', 'email', 'phone_number',
                   'location', 'service_description']
 
-    def clean_phone_number(self):
-        phone_number = self.cleaned_data['phone_number']
-        if len(phone_number.as_e164) != 12:
-            raise forms.ValidationError("Please enter a valid",
-                                        "Kenya phone number.")
-        return phone_number
+    widgets = {
+        'full_name': forms.TextInput(
+            attrs={'class': 'form-control', 'placeholder': 'Full Name'}),
+        'email': forms.EmailInput(
+            attrs={'class': 'form-control', 'placeholder': 'Email'}),
+        'phone_number': forms.TextInput(
+            attrs={'class': 'form-control', 'placeholder': 'Phone Number'}),
+        'location': forms.TextInput(
+            attrs={'class': 'form-control', 'placeholder': 'Location'}),
+        'service_description': forms.Textarea(
+            attrs={'class': 'form-control',
+                   'placeholder': 'Service Description'}),
+        }

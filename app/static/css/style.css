@@ -84,7 +84,7 @@ a:focus {
 }
 
 /*header section*/
-/*.hero_area {
+.hero_area {
   position: relative;
   min-height: 100vh;
   display: -webkit-box;
@@ -123,7 +123,7 @@ a:focus {
 .hero_area .hero_bg_box img {
   min-width: 100%;
   min-height: 100%;
-}*/
+}
 
 /* Header section */
 /*header section*/
