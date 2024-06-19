@@ -11,7 +11,10 @@ success_message = (
 
 
 def success_page(request):
-    return render(request, 'quote/success.html')
+    context = {
+        'success_message': success_message
+    }
+    return render(request, 'quote/success.html', context)
 
 
 def quote_view(request):

@@ -15,8 +15,7 @@
         <body>
             <div class="container mt-5">
                 <div class="alert alert-success" role="alert">
-                    Your quote request has been successfully submitted!
-                    Thank you for using our quote service. We will contact you shortly.
+                    {{ success_message }}
                 </div>
                 <a href="{% url 'quote:quote' %}" class="btn btn-primary">Submit Another Quote</a>
             </div>
