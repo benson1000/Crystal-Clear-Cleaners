@@ -11,7 +11,7 @@ services:
     volumes:
       - ./app:/app
       - dev-static-data:/vol/web
-    entrypoint: ["/wait-for-it.sh", "db:5432", "--"]
+    entrypoint: ["/wait-for-it.sh", "db:5432", "--", "/wait-for-it.sh", "rabbitmq3:5672", "--"]
     command: ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
     environment:
       - DB_HOST=db
@@ -19,8 +19,14 @@ services:
       - DB_USER=devuser
       - DB_PASS=testpasswd123
       - DEBUG=1
+      - RABBITMQ_HOST=rabbitmq3
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
     depends_on:
+      - redis
       - db
+      - rabbitmq3
 
   db:
     image: postgres:16-alpine
@@ -30,6 +36,50 @@ services:
       - POSTGRES_DB=devdb
       - POSTGRES_USER=devuser
       - POSTGRES_PASSWORD=testpasswd123
+  
+
+  redis:
+    image: redis:7.2.5-alpine
+
+  celery:
+    restart: always
+    build:
+      context: .
+      args:
+        - DEV=true
+    command: ["sh", "-c", "celery -A app worker --loglevel=info"]
+    volumes:
+      -  ./app:/app
+    depends_on:
+      - app
+      - rabbitmq3
+    environment:
+      - RABBITMQ_HOST=rabbitmq3
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+
+  rabbitmq3:
+    image: rabbitmq:3.13.3-alpine
+    container_name: "rabbitmq3"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+
+  flower:
+   restart: always
+   image: mher/flower
+   command: ["celery", "flower", "-A", "app", "--broker=amqp://guest:guest@rabbitmq3:5672//"]
+   ports:
+    - "5555:5555"
+   depends_on:
+    - rabbitmq3
+    - celery
+   environment:
+    - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq3:5672//
 
 volumes:
   dev-db-data:

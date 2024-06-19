@@ -2,5 +2,8 @@
     "jira-plugin.workingProject": "",
     "cSpell.words": [
         "psycopg"
+    ],
+    "python.analysis.extraPaths": [
+        "./app/app"
     ]
 }

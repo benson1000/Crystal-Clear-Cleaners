@@ -838,8 +838,8 @@ a:focus {
           align-items: center;
   color: #ffffff;
   border-radius: 100%;
-  margin-right: 10px;
-  font-size: 24px;
+  margin-right: 5px;
+  font-size: 15px;
 }
 
 .info_section .info_social a:hover {

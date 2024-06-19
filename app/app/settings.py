@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'changeme')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0:8000', '0.0.0.0']
 ALLOWED_HOSTS.extend(
     filter(None,
            os.environ.get('ALLOWED_HOSTS', '').split(',')),)
@@ -97,6 +97,14 @@ DATABASES = {
 }
 
 
+# Celery configuration
+CELERY_BROKER_URL = f"amqp://{os.getenv('RABBITMQ_USER')}:{os.getenv('RABBITMQ_PASSWORD')}@{os.getenv('RABBITMQ_HOST')}:{os.getenv('RABBITMQ_PORT')}//"
+CELERY_RESULT_BACKEND = 'rpc://'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -147,3 +155,13 @@ STATIC_ROOT = '/vol/web/static'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'core.CustomUser'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# SMTP configuration for sending emails
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST = 'your_email_host'  # Example: 'smtp.gmail.com'
+#EMAIL_PORT = 587  # Port for SMTP (typically 587 for TLS/STARTTLS)
+#EMAIL_USE_TLS = True  # True for TLS/STARTTLS, False for plain SMTP
+EMAIL_HOST_USER = 'admin@crstalclearcleaners.com'  # Your email address
+#EMAIL_HOST_PASSWORD = 'your_email_password'  # Your email password or app password
