@@ -165,3 +165,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #EMAIL_USE_TLS = True  # True for TLS/STARTTLS, False for plain SMTP
 EMAIL_HOST_USER = 'admin@crstalclearcleaners.com'  # Your email address
 #EMAIL_HOST_PASSWORD = 'your_email_password'  # Your email password or app password
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',
+}

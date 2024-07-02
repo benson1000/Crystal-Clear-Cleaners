@@ -7,12 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="keywords" content="Site keywords here">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- Site Metas -->
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="">
-
     {% if title %}
         <title>Crystal Clear Cleaners | {{ title }}</title>
     {% else %}
@@ -20,79 +17,56 @@
     {% endif %}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/solid.css" integrity="sha384-Tv5i09RULyHKMwX0E8wJUqSOaXlyu3SQxORObAI08iUwIalMmN5L6AvlPX2LMoSE" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/fontawesome.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous"/>
-    <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/back.css' %}" />
     <style>
-      .custom-icon {
-        color: white;
-        font-size: 25px;
-        margin-right: 10px;
-      }
+        .custom-icon {
+            color: white;
+            font-size: 25px;
+            margin-right: 10px;
+        }
 
-      .btn.btn-success:hover {
-        background-color: blue !important; /* Use !important to override Bootstrap styles */
-      }
+        .btn.btn-success:hover {
+            background-color: blue !important; 
+        }
 
-      .btn.btn-success:hover span {
-        color: white !important; 
-      }
+        .btn.btn-success:hover span {
+            color: white !important; 
+        }
 
-      .info_social a:not(:last-child) {
-        margin-right: 10px; /* Adding space between the social icons except for the last one */
-      }
+        .info_social a:not(:last-child) {
+            margin-right: 10px;
+        }
 
-      .info_social a i {
-          color: #ff5733; /* Changing the color of the social icons */
-          padding-right: 15px;
-      }
+        .info_social a i {
+            color: #ff5733;
+            padding-right: 15px;
+        }
     </style>
-
-    <!-- fonts style -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-
-    <!--owl slider stylesheet -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-
-    <!-- font awesome style -->
     <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
-
-    <!-- Custom styles for this template -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
-    <!-- responsive style -->
     <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
 </head>
 <body>
     <div class="hero_area">
-        <div class="hero_bg_box">
-            <div class="bg_img_box">
-                <img src="{% static 'images/front.jpg' %}" alt="Cleaning">
-            </div>
-        </div>
-        <!-- header section strats -->
         <header class="header_section">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg custom_nav-container ">
                     <a class="navbar-brand" href="{% url 'home' %}">
-                        <span>
-                            Crystal Clear Cleaners
-                        </span>
+                        <span>Crystal Clear Cleaners</span>
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class=""> </span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link" href="#about">Why US</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#contact">Contact Us</a></li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#about">Why US</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#services">Services</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#contact">Contact Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-success" href="{% url 'quote:quote' %}">get Quote</a>
+                                <a class="nav-link btn btn-success" href="#" onclick="openQuoteSidebar()">Get Quote</a>
                             </li>
                         </ul>
                     </div>
@@ -102,37 +76,71 @@
         {% block content %}
         {% endblock %}
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            function scrollToSection(id) {
-                const section = document.getElementById(id);
-                if (section) {
-                    section.scrollIntoView({ behavior: "smooth" });
-                }
-            }
 
-            const navbarLinks = document.querySelectorAll("nav a");
-            navbarLinks.forEach(link => {
-                link.addEventListener("click", function(event) {
-                    event.preventDefault();
-                    const targetId = this.getAttribute("href").substring(1);
-                    scrollToSection(targetId);
-                });
-            });
-        });
-    </script>
-
-    <!-- jQuery -->
+    <div id="quoteSidebar" class="quote-sidebar">
+        <div class="quote-sidebar-content">
+            <a href="#" class="closebtn" onclick="closeQuoteSidebar()">&times;</a>
+            <div id="quoteFormContainer">
+            </div>
+        </div>
+    </div>
+    
     <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
-    <!-- popper js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <!-- bootstrap js -->
     <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
-    <!-- owl slider -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <!-- custom js -->
     <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
-    <!-- Google Map -->
+    <script type="text/javascript" src="{% static 'js/model.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/back.js' %}"></script>
+    <script>
+        function openQuoteSidebar() {
+            document.getElementById("quoteSidebar").style.width = "50%";
+            fetch("{% url 'quote:quote' %}").then(response => response.text()).then(html => {
+                document.getElementById("quoteFormContainer").innerHTML = html;
+            });
+        }
+
+        function closeQuoteSidebar() {
+            document.getElementById("quoteSidebar").style.width = "0";
+        }
+    </script>
+   
+    <style>
+        .quote-sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: white;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+        }
+
+        .quote-sidebar-content {
+            padding: 15px;
+        }
+
+        .quote-sidebar .closebtn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 36px;
+        }
+        /* Set background image for hero area */
+        .hero_area {
+            background-image: url('{% static "images/front.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            z-index: 0; /* Ensure content is above the image */
+            height: 100vh; /* Adjust height as needed */
+            color: white; /* Text color on top of image */
+        }
+    </style>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
 </body>
 </html>

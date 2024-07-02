@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block content %}
     <!-- templates/success.html -->
     <!DOCTYPE html>
@@ -11,16 +10,29 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Quote Submitted Successfully!</title>
             <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+            <style>
+                .fade-out {
+                    transition: opacity 1s ease-out;
+                    opacity: 0;
+                }
+            </style>
         </head>
         <body>
             <div class="container mt-5">
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-success" role="alert" id="success-message">
                     {{ success_message }}
                 </div>
-                <a href="{% url 'quote:quote' %}" class="btn btn-primary">Submit Another Quote</a>
             </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    setTimeout(function() {
+                        var alert = document.querySelector('.alert');
+                        if (alert) {
+                            alert.style.display = 'none';
+                        }
+                    }, 5000); // 5000ms = 5 seconds
+                });
+            </script>
         </body>
     </html>
-
 {% endblock %}
-    

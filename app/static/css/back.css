@@ -1,0 +1,28 @@
+#backbtn {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 0; /* Remove padding */
+  border-radius: 10px; /* Rounded corners */
+  width: 50px; /* Set a width */
+  height: 50px; /* Set a height */
+  overflow: hidden; /* Hide overflow */
+  background-color: green;  /* Default background color */
+  transition: background-color 0.3s ease;  /* Add transition for smooth color change */
+}
+
+#myBtn:hover {
+  background-color: green; /* Background color on hover */
+}
+
+.fa-arrow-circle-o-up {
+  display: flex; /* Allow centering within the button */
+  justify-content: center; /* Center the icon horizontally */
+  align-items: center; /* Center the icon vertically */
+  
+}
