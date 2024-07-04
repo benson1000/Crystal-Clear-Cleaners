@@ -16,6 +16,8 @@ services:
       - ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
     depends_on:
       - db
+      - redis
+      - rabbitmq3
 
   db:
     image: postgres:16-alpine
@@ -26,6 +28,50 @@ services:
     - POSTGRES_USER=${DB_USER}
     - POSTGRES_PASSWORD=${DB_PASS}
     - POSTGRES_DB=${DB_NAME}
+  
+
+  redis:
+    image: redis:7.2.5-alpine
+
+  celery:
+    restart: always
+    build:
+      context: .
+      args:
+        - DEV=true
+    command: ["sh", "-c", "celery -A app worker --loglevel=error"]
+    volumes:
+      -  ./app:/app
+    depends_on:
+      - app
+      - rabbitmq3
+    environment:
+      - RABBITMQ_HOST=${RABBITMQ_HOST}
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
+      - RABBITMQ_USER=${RABBITMQ_USER}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+
+  rabbitmq3:
+    image: rabbitmq:3.13.3-alpine
+    container_name: "rabbitmq3"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+
+  flower:
+   restart: always
+   image: mher/flower
+   command: ["celery", "flower", "-A", "app", "--broker=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@${RABBITMQ_HOST}:${RABBITMQ_PORT}//"]
+   ports:
+    - "5555:5555"
+   depends_on:
+    - rabbitmq3
+    - celery
+   environment:
+    - CELERY_BROKER_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@${RABBITMQ_HOST}:${RABBITMQ_PORT}//
 
   proxy:
     build:

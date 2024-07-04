@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 
+from environs import Env
+
+env = Env() # new
+env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,12 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'changeme')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'OMcHPbtBGHB8ABsNdDgew1vShYEdkBRbDaroG2DSCX4')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(int(os.environ.get('DEBUG', 0)))
+DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ['0.0.0.0:8000', '0.0.0.0']
+ALLOWED_HOSTS = [".herokuapp.com", "0.0.0.0:8000'", "0.0.0.0"]
 ALLOWED_HOSTS.extend(
     filter(None,
            os.environ.get('ALLOWED_HOSTS', '').split(',')),)
@@ -156,14 +161,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'core.CustomUser'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # SMTP configuration for sending emails
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_HOST = 'your_email_host'  # Example: 'smtp.gmail.com'
-#EMAIL_PORT = 587  # Port for SMTP (typically 587 for TLS/STARTTLS)
-#EMAIL_USE_TLS = True  # True for TLS/STARTTLS, False for plain SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp-relay.brevo.com'
+EMAIL_PORT = 587  # Port for SMTP (typically 587 for TLS/STARTTLS)
+EMAIL_USE_TLS = False # True for TLS/STARTTLS, False for plain SMTP
 EMAIL_HOST_USER = 'admin@crstalclearcleaners.com'  # Your email address
+EMAIL_HOST_USER = '77e84f001@smtp-brevo.com'
+EMAIL_HOST_PASSWORD = 'x0WU8MqYS3kJRjOv'
 #EMAIL_HOST_PASSWORD = 'your_email_password'  # Your email password or app password
 from django.contrib.messages import constants as messages
 
